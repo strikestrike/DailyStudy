@@ -5,6 +5,7 @@ import 'package:dailystudy/views/settings/settings_form6.dart';
 import 'package:dailystudy/views/settings/settings_form7.dart';
 import 'package:dailystudy/views/settings/settings_form8.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../components/expandable_list_item.dart';
 import '../../components/my_bottom_nav_bar.dart';
 import '../calendar_page.dart';
@@ -23,7 +24,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   final pages = [
     CalendarScreen(),
-    const OverviewScreen(),
+    OverviewScreen(),
     TextbookScreen(),
   ];
 
@@ -35,35 +36,24 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildBody(context),
-      bottomNavigationBar: MyBottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTap: (index) {
-          _onItemTap(index);
-        },
-      ),
-    );
-  }
-
-  Widget _buildBody(BuildContext context) {
-    if (_selectedIndex == -1) {
-      return Column(
-          children: [
-            AppBar(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (_selectedIndex == -1) {
+          return Scaffold(
+            appBar: AppBar(
               leading: IconButton(
                   icon: Icon(Icons.arrow_back_ios, color: Colors.black),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
               actions: [
-                new SizedBox(
-                  height: 80.0,
-                  width: 80.0,
-                  child: new IconButton(
+                SizedBox(
+                  height: 18.w,
+                  width: 18.w,
+                  child: IconButton(
                       alignment: Alignment.center,
                       color: Colors.black,
-                      icon: new Icon(Icons.account_circle_outlined, size: 40.0),
+                      icon: Icon(Icons.account_circle_outlined, size: 10.w),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingScreen()));
                       }
@@ -71,98 +61,123 @@ class _SettingScreenState extends State<SettingScreen> {
                 )
               ],
               backgroundColor: Colors.white,
-              toolbarHeight: 80,
+              toolbarHeight: 18.w,
             ),
-            const SizedBox(height: 10),
-            const DefaultTextStyle(
-              style: TextStyle(decoration: TextDecoration.none),
-              child: Text(
-                "קביעת מסגרת הלימוד",
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
+            body: SingleChildScrollView(
+              child: _buildBody(context),
+            ),
+            bottomNavigationBar: MyBottomNavBar(
+              selectedIndex: _selectedIndex,
+              onItemTap: (index) {
+                _onItemTap(index);
+              },
+            ),
+          );
+        }
+
+        return Scaffold(
+          body: pages[_selectedIndex],
+          bottomNavigationBar: MyBottomNavBar(
+            selectedIndex: _selectedIndex,
+            onItemTap: (index) {
+              _onItemTap(index);
+            },
+          ),
+        );
+      }
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: SingleChildScrollView(
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              const DefaultTextStyle(
+                style: TextStyle(decoration: TextDecoration.none),
+                child: Text(
+                  "קביעת מסגרת הלימוד",
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 32,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Material(
-              child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Column(
-                    children: [
-                      Card(
-                          child:ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm8()));
-                              },
-                              title: Text('תורה (שמו"ת)'),
-                              trailing: Icon(Icons.arrow_back_ios_rounded)
-                          )
-                      ),
-                      Card(
-                          child:ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm7()));
-                              },
-                              title: Text('נ"ך'),
-                              trailing: Icon(Icons.arrow_back_ios_rounded)
-                          )
-                      ),
-                      Card(
-                          child:ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm6()));
-                              },
-                              title: Text('משניות'),
-                              trailing: Icon(Icons.arrow_back_ios_rounded)
-                          )
-                      ),
-                      Card(
-                          child:ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm5()));
-                              },
-                              title: Text('ש"ס בבלי'),
-                              trailing: Icon(Icons.arrow_back_ios_rounded)
-                          )
-                      ),
-                      Card(
-                          child:ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm4()));
-                              },
-                              title: Text('ש"ס ירושלמי'),
-                              trailing: Icon(Icons.arrow_back_ios_rounded)
-                          )
-                      ),
-                      Card(
-                          child:ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm3()));
-                              },
-                              title: Text('הלכה שו"ע'),
-                              trailing: Icon(Icons.arrow_back_ios_rounded)
-                          )
-                      ),
-                      Card(
-                          child:ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm2()));
-                              },
-                              title: Text('רמב"ם היד החזקה'),
-                              trailing: Icon(Icons.arrow_back_ios_rounded)
-                          )
-                      ),
-                    ],
+              const SizedBox(height: 10),
+              Card(
+                  child:ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm8()));
+                      },
+                      title: Text('תורה (שמו"ת)'),
+                      trailing: Icon(Icons.arrow_back_ios_rounded)
                   )
               ),
-            ),
-          ],
-        );
-    } else {
-      return pages[_selectedIndex];
-    }
+              Card(
+                  child:ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm7()));
+                      },
+                      title: Text('נ"ך'),
+                      trailing: Icon(Icons.arrow_back_ios_rounded)
+                  )
+              ),
+              Card(
+                  child:ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm6()));
+                      },
+                      title: Text('משניות'),
+                      trailing: Icon(Icons.arrow_back_ios_rounded)
+                  )
+              ),
+              Card(
+                  child:ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm5()));
+                      },
+                      title: Text('ש"ס בבלי'),
+                      trailing: Icon(Icons.arrow_back_ios_rounded)
+                  )
+              ),
+              Card(
+                  child:ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm4()));
+                      },
+                      title: Text('ש"ס ירושלמי'),
+                      trailing: Icon(Icons.arrow_back_ios_rounded)
+                  )
+              ),
+              Card(
+                  child:ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm3()));
+                      },
+                      title: Text('הלכה שו"ע'),
+                      trailing: Icon(Icons.arrow_back_ios_rounded)
+                  )
+              ),
+              Card(
+                  child:ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsForm2()));
+                      },
+                      title: Text('רמב"ם היד החזקה'),
+                      trailing: Icon(Icons.arrow_back_ios_rounded)
+                  )
+              ),
+              const SizedBox(height: 10),
+            ],
+          )
+        )
+      ),
+    );
   }
 
 }

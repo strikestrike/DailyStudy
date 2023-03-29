@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../views/question_screen.dart';
 
@@ -30,16 +31,16 @@ class ListItemState extends State<ListItem>
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Padding(
-        padding: (isExpand==true)?const EdgeInsets.all(8.0):const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(2.w),
         child: Container(
           decoration:BoxDecoration(
             color: Colors.white,
-            borderRadius: (isExpand!=true)?BorderRadius.all(Radius.circular(8)):BorderRadius.all(Radius.circular(22)),
+            borderRadius: BorderRadius.all(Radius.circular(5.w)),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
+                spreadRadius: 2.w,
+                blurRadius: 3.w,
                 offset: Offset(0, 3), // changes position of shadow
               ),
             ],
@@ -48,7 +49,7 @@ class ListItemState extends State<ListItem>
             key: PageStorageKey<String>(this.widget.headerTitle),
             title: Container(
                 width: double.infinity,
-                child: Text(this.widget.headerTitle,style: TextStyle(fontSize: (isExpand!=true)?18:22),)),
+                child: Text(this.widget.headerTitle,style: TextStyle(fontSize: (isExpand!=true)? 16.sp : 18.sp),)),
             trailing: Transform.rotate(
               angle: (isExpand ? 90 : 0) * 3.14 / 180,
               child: Icon(
@@ -56,7 +57,7 @@ class ListItemState extends State<ListItem>
                 color: Colors.black,
               ),
             ),
-            leading: const Icon(Icons.check, color: Colors.green, size: 20),
+            leading: Icon(Icons.check, color: Colors.green, size: 5.w),
             onExpansionChanged: (value){
               setState(() {
                 isExpand=value;
@@ -74,18 +75,18 @@ class ListItemState extends State<ListItem>
                         width: double.infinity,
                         decoration:BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(4)),
+                            borderRadius: BorderRadius.all(Radius.circular(2.w)),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 5,
+                              spreadRadius: 1.w,
+                              blurRadius: 1.w,
                               offset: Offset(0, 1), // changes position of shadow
                             ),
                           ],
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(2.w),
                           child: Text(item['chapter']!, style: TextStyle(color: Colors.black87),),
                         )),
                   ),

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dailystudy/views/login_page.dart';
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import '../utils/constants.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 2),
       () => Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => const LoginScreen()))
     );
   }
@@ -32,8 +32,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [
-                  Color(0xFF3F60A3),
-                  Color(0xFF1E3150),
+                  BG_GRADIENT_START_COLOR,
+                  BG_GRADIENT_END_COLOR,
                 ],
               )
           ),
@@ -42,14 +42,14 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment:MainAxisAlignment.center,
               crossAxisAlignment:CrossAxisAlignment.center,
               mainAxisSize:MainAxisSize.max,
-              children: const [
+              children: [
                 Text(
                   "תורת חיים",
                   style:TextStyle(
                     fontWeight:FontWeight.w600,
                     fontStyle:FontStyle.normal,
-                    fontSize:46,
-                    color:Color(0xffffffff),
+                    fontSize: TITLE_FONT_SIZE,
+                    color: Colors.white,
                   ),
                 ),
                 Text(
@@ -57,8 +57,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   style:TextStyle(
                     fontWeight:FontWeight.w400,
                     fontStyle:FontStyle.normal,
-                    fontSize:14,
-                    color:Color(0xffffffff),
+                    fontSize: NORMAL_FONT_SIZE,
+                    color: Colors.white,
                   ),
                 ),
                 Text(
@@ -66,8 +66,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   style:TextStyle(
                     fontWeight:FontWeight.w400,
                     fontStyle:FontStyle.normal,
-                    fontSize:14,
-                    color:Color(0xffffffff),
+                    fontSize: NORMAL_FONT_SIZE,
+                    color: Colors.white,
                   ),
                 ),
               ],

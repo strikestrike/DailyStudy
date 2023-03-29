@@ -1,6 +1,8 @@
 import 'package:dailystudy/views/textbook_page.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import '../components/my_bottom_nav_bar.dart';
+import '../utils/constants.dart';
 import 'calendar_page.dart';
 import 'overview_page.dart';
 import 'settings/setting_page.dart';
@@ -20,7 +22,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   int _selectedIndex = -1;
   final pages = [
     CalendarScreen(),
-    const OverviewScreen(),
+    OverviewScreen(),
     TextbookScreen(),
   ];
 
@@ -57,35 +59,25 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildBody(context),
-      bottomNavigationBar: MyBottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTap: (index) {
-          _onItemTap(index);
-        },
-      ),
-    );
-  }
-
-  Widget _buildBody(BuildContext context) {
-    if (_selectedIndex == -1) {
-      return SingleChildScrollView(
-          child: Column(
-              children: <Widget>[
-                ClipPath(
+    return LayoutBuilder(
+        builder: (context, constraints) {
+          if (_selectedIndex == -1) {
+            return Scaffold(
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(55.h),
+                child: ClipPath(
                   clipper: MyClipper(),
                   child: Container(
-                    padding: EdgeInsets.only(left: 20, top: 30, right: 20),
-                    height: 350,
+                    padding: EdgeInsets.only(left: 5.w, top: 5.h, right: 5.w),
+                    height: 50.h,
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Color(0xFF3F60A3),
-                          Color(0xFF1E3150),
+                          BG_GRADIENT_START_COLOR,
+                          BG_GRADIENT_END_COLOR,
                         ],
                       ),
                     ),
@@ -108,7 +100,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                     widget.textTop ?? '',
                                     style:TextStyle(
                                       fontWeight:FontWeight.w600,
-                                      fontSize: 28,
+                                      fontSize: TITLE2_FONT_SIZE,
                                       color:Colors.white,
                                     ),
                                   ),
@@ -121,9 +113,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                 child: Align(
                                     alignment: Alignment.bottomRight,
                                     child: Container(
-                                      padding: const EdgeInsets.all(5),
+                                      padding: EdgeInsets.all(2.w),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(100),
+                                          borderRadius: BorderRadius.circular(30.w),
                                           border: Border.all(width: 2, color: Colors.white)),
                                       child: const Icon(
                                         Icons.person_2_outlined,
@@ -134,66 +126,93 @@ class _QuestionScreenState extends State<QuestionScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 30),
+                          SizedBox(height: 5.h),
                           Text(
                             widget.textBottom ?? '',
                             textAlign: TextAlign.center,
-                            style:TextStyle(fontSize: 28, color:Colors.white),
+                            style:TextStyle(fontSize: NORMAL_FONT_SIZE, color:Colors.white),
                           ),
                         ]
                     ),
                   ),
                 ),
-                Container(
-                    padding: EdgeInsets.all(15),
-                    width: double.infinity,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: _answers.map((Answer entry) => Column(
-                            children: [
-                              SizedBox(
-                                  width: double.infinity,
-                                  height: 50,
-                                  child: ElevatedButton.icon(
-                                    onPressed: () {
-                                      setState(() {
-                                        answeredId = entry.id;
-                                      });
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      textStyle: const TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                                      side: _buildBorder(entry),
-                                      //Set the background color
-                                      primary: Colors.white,
-                                      //Set the foreground (text + icon) color
-                                      onPrimary: Colors.black54,
-                                      //Set the padding on all sides to 30px
-                                      padding: const EdgeInsets.all(10),
+              ),
+              body: SingleChildScrollView(
+                child: _buildBody(context),
+              ),
+              bottomNavigationBar: MyBottomNavBar(
+                selectedIndex: _selectedIndex,
+                onItemTap: (index) {
+                  _onItemTap(index);
+                },
+              ),
+            );
+          }
+
+          return Scaffold(
+            body: pages[_selectedIndex],
+            bottomNavigationBar: MyBottomNavBar(
+              selectedIndex: _selectedIndex,
+              onItemTap: (index) {
+                _onItemTap(index);
+              },
+            ),
+          );
+        }
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    return SingleChildScrollView(
+        child: Column(
+            children: <Widget>[
+              Container(
+                  padding: EdgeInsets.only(left: 2.w, right: 2.w, bottom: 2.h),
+                  width: double.infinity,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: _answers.map((Answer entry) => Column(
+                          children: [
+                            SizedBox(
+                                width: double.infinity,
+                                height: 8.h,
+                                child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    setState(() {
+                                      answeredId = entry.id;
+                                    });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    textStyle: TextStyle(
+                                      fontSize: NORMAL_FONT_SIZE,
                                     ),
-                                    icon: _buildIcon(entry),
-                                    label: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end, // add this line to float the text to right.
-                                      children: [
-                                        Text(entry.answer),
-                                      ],
-                                    ),
-                                  )
-                              ),
-                              SizedBox(height: 8.0)
-                            ]
-                        )
-                        ).toList()
-                    )
-                )
-              ]
-          )
-      );
-    } else {
-      return pages[_selectedIndex];
-    }
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.w)),
+                                    side: _buildBorder(entry),
+                                    //Set the background color
+                                    primary: Colors.white,
+                                    //Set the foreground (text + icon) color
+                                    onPrimary: Colors.black54,
+                                    //Set the padding on all sides to 30px
+                                    padding: EdgeInsets.all(3.w),
+                                  ),
+                                  icon: _buildIcon(entry),
+                                  label: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end, // add this line to float the text to right.
+                                    children: [
+                                      Text(entry.answer),
+                                    ],
+                                  ),
+                                )
+                            ),
+                            SizedBox(height: 2.h)
+                          ]
+                      )
+                      ).toList()
+                  )
+              )
+            ]
+        )
+    );
   }
 
   BorderSide _buildBorder(Answer answer) {
@@ -213,17 +232,17 @@ class _QuestionScreenState extends State<QuestionScreen> {
   Widget _buildIcon(Answer answer) {
     if (answeredId == answer.id) {
       return answer.correct
-          ? const Icon(Icons.check, color: Colors.green, size: 20)
-          : const Icon(Icons.close, color: Colors.red, size: 20);
+          ? Icon(Icons.check, color: Colors.green, size: 5.w)
+          : Icon(Icons.close, color: Colors.red, size: 5.w);
     }
 
     if (answer.correct && !answeredId.isEmpty) {
-      return const Icon(Icons.check, color: Colors.green, size: 20);
+      return Icon(Icons.check, color: Colors.green, size: 5.w);
     }
 
     return Container(
-      width: 14,
-      height: 14,
+      width: 5.w,
+      height: 5.w,
     );
   }
 
@@ -233,8 +252,8 @@ class MyClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     var path = Path();
-    path.lineTo(0, size.height - 130);
-    path.quadraticBezierTo(size.width / 2, size.height, size.width, size.height - 130);
+    path.lineTo(0, 30.h);
+    path.quadraticBezierTo(size.width / 2, size.height, size.width, 30.h);
     path.lineTo(size.width, 0);
     path.close();
     return path;

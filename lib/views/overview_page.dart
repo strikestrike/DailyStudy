@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:confirm_dialog/confirm_dialog.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import '../utils/constants.dart';
 import 'settings/setting_page.dart';
 
-class OverviewScreen extends StatelessWidget {
-  const OverviewScreen({Key? key}) : super(key: key);
+
+class OverviewScreen extends StatefulWidget {
+  @override
+  _OverviewScreenState createState() => _OverviewScreenState();
+}
+
+class _OverviewScreenState extends State<OverviewScreen> {
+  List<int> _books = [
+    1,2,3,4,5,6,7,8,9,10
+  ];
+  List<int> _items = [
+    1,2,3,4,5,6,7,8,9,10
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -14,18 +27,18 @@ class OverviewScreen extends StatelessWidget {
             left: 0.0,
             right: 0.0, // change height of ads as you like
             child: Container(
-              height: 210,
+              height: 30.h,
               decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     colors: [
-                      Color(0xFF3F60A3),
-                      Color(0xFF1E3150),
+                      BG_GRADIENT_START_COLOR,
+                      BG_GRADIENT_END_COLOR,
                     ],
                   )
               ),
-              padding: EdgeInsets.only(left: 20, top: 30, right: 20),
+              padding: EdgeInsets.only(left: 5.w, top: 5.h, right: 5.w),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -37,14 +50,14 @@ class OverviewScreen extends StatelessWidget {
                             Navigator.pop(context);
                           },
                         ),
-                        const Expanded(
+                        Expanded(
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
                               "תורת חיים",
                               style:TextStyle(
                                 fontWeight:FontWeight.w600,
-                                fontSize:46,
+                                fontSize: TITLE2_FONT_SIZE,
                                 color:Colors.white,
                               ),
                             ),
@@ -57,10 +70,10 @@ class OverviewScreen extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.bottomRight,
                             child: Container(
-                              padding: const EdgeInsets.all(5),
+                              padding: EdgeInsets.all(1.w),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                border: Border.all(width: 2, color: Colors.white)
+                                borderRadius: BorderRadius.circular(30.w),
+                                border: Border.all(width: 0.3.w, color: Colors.white)
                               ),
                               child: const Icon(
                                 Icons.person_2_outlined,
@@ -71,20 +84,20 @@ class OverviewScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Text(
+                    Text(
                       "לע״נ הרב שמריהו יוסף חיים קניבסקי",
-                      style:TextStyle(fontSize:14, color:Colors.white),
+                      style:TextStyle(fontSize: NORMAL_FONT_SIZE, color:Colors.white),
                     ),
-                    const Text(
+                    Text(
                       "לע״נ הרב חיים מאיר דרוקמן",
-                      style:TextStyle(fontSize:14, color:Colors.white),
+                      style:TextStyle(fontSize: NORMAL_FONT_SIZE, color:Colors.white),
                     ),
-                    const SizedBox(height: 20),
-                    const Text(
+                    SizedBox(height: 3.h),
+                    Text(
                       "תורת חיים",
                       style:TextStyle(
                         fontWeight:FontWeight.w600,
-                        fontSize:36,
+                        fontSize: SUB_TITLE_FONT_SIZE,
                         color:Colors.white,
                       ),
                     ),
@@ -94,578 +107,51 @@ class OverviewScreen extends StatelessWidget {
           ),
           Card(
             elevation: 5.0,
-            margin: EdgeInsets.only(left: 15.0, right: 15.0, top: 150),
+            margin: EdgeInsets.only(left: 3.w, right: 3.w, top: 20.h),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(5.w),
             ),
             child: Container(
-              height: 170,
+              height: 20.h,
               child: ListView(
                   shrinkWrap: false,
-                  padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 18.0, bottom: 5.0),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "0",
-                            style: TextStyle(color: Colors.black87),
-                          ),
-                          Text(
-                            "רמבם היד החז",
-                            style: TextStyle(color: Colors.black87),
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "0",
-                            style: TextStyle(color: Colors.black87),
-                          ),
-                          Text(
-                            "רמבם היד החז",
-                            style: TextStyle(color: Colors.black87),
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "0",
-                            style: TextStyle(color: Colors.black87),
-                          ),
-                          Text(
-                            "רמבם היד החז",
-                            style: TextStyle(color: Colors.black87),
-                          )
-                        ],
-                      ),
-                    ),
-                  ]
+                  padding: EdgeInsets.only(top: 1.h, left: 10.w, right: 5.w, bottom: 1.h),
+                  children: _items
+                      .map((e) => Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              "0",
+                              style: TextStyle(color: Colors.black87),
+                            ),
+                            Text(
+                              "רמבם היד החז",
+                              style: TextStyle(color: Colors.black87),
+                            )
+                          ],
+                        ))
+                      .toList(),
               ),
             ),
           ),
           Container(
-              margin: EdgeInsets.only(left: 15.0, right: 15.0, top: 340),
+              margin: EdgeInsets.only(left: 2.w, right: 2.w, top: 42.h),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children:  [
-                    const Text(
+                    Text(
                       "לימוד יומי",
                       style: TextStyle(
                         color: Colors.black87,
-                        fontSize: 45,
+                        fontSize: SUB_TITLE_FONT_SIZE,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(height: 10),
                     Expanded(
                       child: ListView(
                           shrinkWrap: false,
-                          padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0, bottom: 10.0),
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      _pressConfirm(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff009ACB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                      child: Text(
-                                        'למדתי',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  const Text(
-                                    'א',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                  const Text(
-                                    'משניות',
-                                    style:TextStyle(fontSize:14, color:Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ]
+                          padding: EdgeInsets.all(0),
+                          children: _generateListView(),
                       ),
                     ),
                   ]
@@ -673,6 +159,52 @@ class OverviewScreen extends StatelessWidget {
           )
         ]
     );
+  }
+
+  List<Widget> _generateListView() {
+    List<Widget> children = [];
+
+    _books.asMap().forEach((index, option) => {
+      children.add(
+          Padding(
+            padding: EdgeInsets.fromLTRB(1.h, 1.w, 1.h, 1.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints.tightFor(width: 20.w, height: 4.h),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      _pressConfirm(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: ACTIVE_COLOR,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.w),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      'למדתי',
+                      style: TextStyle(fontSize: NORMAL_FONT_SIZE),
+                    ),
+                  ),
+                ),
+                Text(
+                  'א',
+                  style:TextStyle(fontSize: NORMAL_FONT_SIZE, color:Colors.black87),
+                ),
+                Text(
+                  'משניות',
+                  style:TextStyle(fontSize: NORMAL_FONT_SIZE, color:Colors.black87),
+                ),
+              ],
+            ),
+          )
+      ),
+    });
+
+    return children;
   }
 
   _pressConfirm(BuildContext context) async {

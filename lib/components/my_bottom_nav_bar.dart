@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:round_icon/round_icon.dart';
+
+import '../utils/constants.dart';
 
 class MyBottomNavBar extends StatelessWidget {
   final int selectedIndex;
@@ -21,7 +24,7 @@ class MyBottomNavBar extends StatelessWidget {
             backgroundColor:
             selectedIndex == 0 ? Colors.blue : Colors.transparent,
             iconColor: selectedIndex == 0 ? Colors.white : Colors.blue,
-            size: selectedIndex == 0 ? 60 : 40,
+            size: selectedIndex == 0 ? 12.w : 10.w,
           ),
           label: 'לוח שנה',
           backgroundColor: Colors.white,
@@ -32,7 +35,7 @@ class MyBottomNavBar extends StatelessWidget {
             backgroundColor:
             selectedIndex == 1 ? Colors.blue : Colors.transparent,
             iconColor: selectedIndex == 1 ? Colors.white : Colors.blue,
-            size: selectedIndex == 1 ? 60 : 40,
+            size: selectedIndex == 1 ? 12.w : 10.w,
           ),
           label: 'לימוד יומי',
           backgroundColor: Colors.white,
@@ -43,7 +46,7 @@ class MyBottomNavBar extends StatelessWidget {
             backgroundColor:
             selectedIndex == 2 ? Colors.blue : Colors.transparent,
             iconColor: selectedIndex == 2 ? Colors.white : Colors.blue,
-            size: selectedIndex == 2 ? 60 : 40,
+            size: selectedIndex == 2 ? 12.w : 10.w,
           ),
           label: 'מבחנים',
           backgroundColor: Colors.white,
@@ -51,9 +54,9 @@ class MyBottomNavBar extends StatelessWidget {
       ],
       type: BottomNavigationBarType.fixed,
       currentIndex: selectedIndex == -1 ? 0 : selectedIndex,
-      selectedItemColor: const Color(0xff009ACB),
-      unselectedItemColor: const Color(0xff009ACB),
-      iconSize: 35,
+      selectedItemColor: ACTIVE_COLOR,
+      unselectedItemColor: ACTIVE_COLOR,
+      iconSize: 2.w,
       onTap: onItemTap,
       elevation: 5,
     );

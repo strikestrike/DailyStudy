@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import '../components/list_item.dart';
+import '../utils/constants.dart';
 import 'settings/setting_page.dart';
 
 class TextbookScreen extends StatefulWidget {
@@ -43,18 +46,18 @@ class _TextbookScreenState extends State<TextbookScreen> {
     return Column(
       children: <Widget>[
         Container(
-          height: 210,
+          height: 30.h,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Color(0xFF3F60A3),
-                Color(0xFF1E3150),
+                BG_GRADIENT_START_COLOR,
+                BG_GRADIENT_END_COLOR,
               ],
             )
           ),
-          padding: EdgeInsets.only(left: 20, top: 30, right: 20),
+          padding: EdgeInsets.only(left: 5.w, top: 5.h, right: 5.w),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -66,15 +69,14 @@ class _TextbookScreenState extends State<TextbookScreen> {
                         Navigator.pop(context);
                       },
                     ),
-                    //            const Text('Welcome to woolha.com', style: const TextStyle(color: Colors.teal)),
-                    const Expanded(
+                    Expanded(
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
                           "תורת חיים",
                           style:TextStyle(
                             fontWeight:FontWeight.w600,
-                            fontSize:46,
+                            fontSize: TITLE2_FONT_SIZE ,
                             color:Colors.white,
                           ),
                         ),
@@ -87,10 +89,10 @@ class _TextbookScreenState extends State<TextbookScreen> {
                       child: Align(
                           alignment: Alignment.bottomRight,
                           child: Container(
-                            padding: const EdgeInsets.all(5),
+                            padding: EdgeInsets.all(1.w),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                border: Border.all(width: 2, color: Colors.white)),
+                                borderRadius: BorderRadius.circular(30.w),
+                                border: Border.all(width: 0.3.w, color: Colors.white)),
                             child: const Icon(
                               Icons.person_2_outlined,
                               color: Colors.white,
@@ -99,20 +101,20 @@ class _TextbookScreenState extends State<TextbookScreen> {
                     ),
                   ],
                 ),
-                const Text(
+                Text(
                   "לע״נ הרב שמריהו יוסף חיים קניבסקי",
-                  style:TextStyle(fontSize:14, color:Colors.white),
+                  style:TextStyle(fontSize: NORMAL_FONT_SIZE, color:Colors.white),
                 ),
-                const Text(
+                Text(
                   "לע״נ הרב חיים מאיר דרוקמן",
-                  style:TextStyle(fontSize:14, color:Colors.white),
+                  style:TextStyle(fontSize: NORMAL_FONT_SIZE, color:Colors.white),
                 ),
-                const SizedBox(height: 20),
-                const Text(
+                SizedBox(height: 3.h),
+                Text(
                   "תורת חיים",
                   style:TextStyle(
                     fontWeight:FontWeight.w600,
-                    fontSize:36,
+                    fontSize: SUB_TITLE_FONT_SIZE,
                     color:Colors.white,
                   ),
                 ),
@@ -127,21 +129,18 @@ class _TextbookScreenState extends State<TextbookScreen> {
                 fit: BoxFit.cover
               ),
             ),
-            padding: EdgeInsets.only(left: 15.0, right: 15.0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children:  [
-                  ListView(
+            padding: EdgeInsets.only(left: 2.w, right: 2.w),
+            child: Scrollable(
+              viewportBuilder: (BuildContext context, ViewportOffset position) {
+                return ListView(
                     shrinkWrap: true,
-                    padding: const EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 5.0),
+                    padding: EdgeInsets.only(top: 1.h, left: 1.w, right: 1.h, bottom: 1.w),
                     children: <Widget>[
                       for(final textbook in data)
                         ListItem(textbook.title, textbook.chapterQuestions)
                     ]
-                  ),
-                ]
-              )
+                );
+              },
             )
           )
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'views/splash_page.dart';
 
 void main() {
@@ -10,10 +11,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Daily Study',
-      home: SplashScreen(),
+    return ResponsiveSizer(
+        builder: (context, orientation, screenType) {
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Daily Study',
+            home: SplashScreen(),
+          );
+        },
+        maxTabletWidth: 900,
     );
   }
 }
