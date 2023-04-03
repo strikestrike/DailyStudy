@@ -6,7 +6,6 @@ import 'package:dailystudy/views/settings/settings_form7.dart';
 import 'package:dailystudy/views/settings/settings_form8.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../components/expandable_list_item.dart';
 import '../../components/my_bottom_nav_bar.dart';
 import '../calendar_page.dart';
 import '../overview_page.dart';

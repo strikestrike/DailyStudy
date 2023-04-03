@@ -30,21 +30,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
           }
         ),
         actions: [
-          new SizedBox(
-            height: 80.0,
-            width: 80.0,
-            child: new IconButton(
-              alignment: Alignment.center,
-              color: Colors.black,
-              icon: new Icon(Icons.person_2_outlined, size: 30.w),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingScreen()));
-              }
+          SizedBox(
+            height: 18.w,
+            width: 18.w,
+            child: IconButton(
+                alignment: Alignment.center,
+                color: Colors.black,
+                icon: Icon(Icons.account_circle_outlined, size: 10.w),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingScreen()));
+                }
             ),
           )
         ],
         backgroundColor: Colors.white,
-        toolbarHeight: 80,
+        toolbarHeight: 18.w,
       ),
       body: Center(
         child: Container(

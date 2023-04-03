@@ -1,27 +1,32 @@
-import 'dart:async';
-
-import 'package:dailystudy/views/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:dailystudy/views/login_page.dart';
+import 'package:dailystudy/views/home_page.dart';
 import '../utils/constants.dart';
-
+import '../utils/globals.dart';
 
 class SplashScreen extends StatefulWidget {
+  static const id = 'SplashScreen';
+
   const SplashScreen({super.key});
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
-
 }
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    (() async {
+      await Future.delayed(Duration.zero);
+      final isLoggedIn = Globals.firebaseUser != null;
+
+      if (!mounted) return;
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder:(context) => isLoggedIn ? HomeScreen() : LoginScreen()));
+    })();
     super.initState();
-    Timer(
-      const Duration(seconds: 2),
-      () => Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => const LoginScreen()))
-    );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

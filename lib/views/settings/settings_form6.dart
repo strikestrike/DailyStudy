@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../components/multi_select.dart';
 import '../../components/my_bottom_nav_bar.dart';
-import '../../components/single_choice_drop_down_button.dart';
+import '../../widgets/multi_select.dart';
+import '../../widgets/single_choice_drop_down_button.dart';
 import 'package:dailystudy/views/settings/setting_page.dart';
 
 import '../../utils/constants.dart';

@@ -5,6 +5,8 @@ import 'overview_page.dart';
 import 'calendar_page.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const id = 'HomeScreen';
+
   const HomeScreen({Key? key}) : super(key: key);
 
   @override

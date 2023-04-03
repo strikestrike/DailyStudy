@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../components/list_item.dart';
+import '../widgets/list_item.dart';
 import '../utils/constants.dart';
 import 'settings/setting_page.dart';
 
@@ -91,7 +91,7 @@ class _TextbookScreenState extends State<TextbookScreen> {
                           child: Container(
                             padding: EdgeInsets.all(1.w),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30.w),
+                                borderRadius: BorderRadius.circular(50.w),
                                 border: Border.all(width: 0.3.w, color: Colors.white)),
                             child: const Icon(
                               Icons.person_2_outlined,

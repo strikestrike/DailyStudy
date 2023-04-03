@@ -113,10 +113,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                 child: Align(
                                     alignment: Alignment.bottomRight,
                                     child: Container(
-                                      padding: EdgeInsets.all(2.w),
+                                      padding: EdgeInsets.all(1.w),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(30.w),
-                                          border: Border.all(width: 2, color: Colors.white)),
+                                          borderRadius: BorderRadius.circular(50.w),
+                                          border: Border.all(width: 0.3.w, color: Colors.white)),
                                       child: const Icon(
                                         Icons.person_2_outlined,
                                         color: Colors.white,

@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import '../utils/constants.dart';
+import '../utils/helpers.dart';
 import 'verify_page.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const id = 'LoginScreen';
+
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String? phoneNumber;
+    final _formKey = GlobalKey<FormState>();
+
     var textFieldBorder = OutlineInputBorder(
-      borderSide: BorderSide(width: 0.2.w, color: ACTIVE_COLOR), //<-- SEE HERE
+      borderSide: BorderSide(width: 0.2.w, color: ACTIVE_COLOR),
       borderRadius: BorderRadius.all(Radius.circular(50.w)),
     );
 
@@ -63,18 +70,38 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              TextField(
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(5.w, 0, 5.w, 0),
-                  enabledBorder: textFieldBorder,
-                  border: textFieldBorder,
+              Form(
+                key: _formKey,
+                child: IntlPhoneField(
+                  autofocus: true,
+                  invalidNumberMessage: 'Invalid Phone Number!',
+                  textAlignVertical: TextAlignVertical.center,
+                  style: const TextStyle(color: Colors.white),
+                  onChanged: (phone) => phoneNumber = phone.completeNumber,
+                  initialCountryCode: 'IL',
+                  flagsButtonPadding: const EdgeInsets.only(left: 15),
+                  showDropdownIcon: false,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.fromLTRB(5.w, 0, 5.w, 0),
+                    enabledBorder: textFieldBorder,
+                    border: textFieldBorder,
+                  ),
                 ),
               ),
               SizedBox(height: 5.h),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => VerifyScreen()));
+                  if (isNullOrBlank(phoneNumber) ||
+                      !_formKey.currentState!.validate()) {
+                    showSnackBar('Please enter a valid phone number!');
+                  } else {
+                    Navigator.pushNamed(
+                      context,
+                      VerifyScreen.id,
+                      arguments: phoneNumber,
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   primary: ACTIVE_COLOR,
